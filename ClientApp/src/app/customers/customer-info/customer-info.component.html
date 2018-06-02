@@ -1,0 +1,145 @@
+<div *ngIf="InfoValue; else elseBlock">
+  <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+    <mat-step [stepControl]="InfoValueForm">
+      <ng-template matStepLabel>
+        <strong><b>ข้อมูลเจ้าของสัตว์เลี้ยง</b></strong>
+      </ng-template>
+      <form [formGroup]="InfoValueForm">
+        <div class="form-container-column">
+          <mat-accordion class="headers-align">
+            <!--Expansion1-->
+            <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+              <!--Header-->
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <strong>ข้อมูลลูกค้า</strong>
+                </mat-panel-title>
+                <mat-panel-description>
+                  ระบุชื่อ-นามสกุล และอายุ
+                  <mat-icon>account_circle</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <!--Row1-->
+              <mat-form-field hintLabel="ระบุชื่อ">
+                <input matInput formControlName="FirstName" required maxlength="200" placeholder="ชื่อ">
+                <mat-hint [align]="end">{{InfoValueForm.controls.FirstName.value?.length || 0}}/200</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field hintLabel="ระบุนามสกุล">
+                <input matInput formControlName="LastName" maxlength="200" placeholder="นามสกุล">
+                <mat-hint [align]="end">{{InfoValueForm.controls.LastName.value?.length || 0}}/200</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field hintLabel="ระบุวันเกิด">
+                <input matInput [matDatepicker]="BirthDate" formControlName="BirthDate" placeholder="วันเกิด">
+                <mat-datepicker-toggle matSuffix [for]="BirthDate"></mat-datepicker-toggle>
+                <mat-datepicker #BirthDate></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field hintLabel="ระบุเพศ">
+                <mat-select formControlName="Sex">
+                  <mat-option>-</mat-option>
+                  <mat-option [value]="1">เพศชาย</mat-option>
+                  <mat-option [value]="2">เพศหญิง</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <!--Expansion2-->
+            <mat-expansion-panel class="my-1" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+              <!--Header-->
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <strong>ข้อมูลที่อยุ่อาศัย</strong>
+                </mat-panel-title>
+                <mat-panel-description>
+                  ระบุที่อยู่,เบอร์ติดต่อ.อีเมล์หรือไลน์ไอดี
+                  <mat-icon>room</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-form-field hintLabel="ระบุที่อยู่-1">
+                <input matInput formControlName="Address" maxlength="200" placeholder="ที่อยู่">
+                <mat-hint [align]="end">{{InfoValueForm.controls.Address.value?.length || 0}}/200</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field hintLabel="ระบุที่อยู่-2">
+                <input matInput formControlName="Address2" maxlength="200" placeholder="ที่อยู่(เพิ่มเติม)">
+                <mat-hint [align]="end">{{InfoValueForm.controls.Address2.value?.length || 0}}/200</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field hintLabel="เบอร์ติดต่อ">
+                <input matInput formControlName="PhoneNo" maxlength="50" placeholder="เบอร์โทรติดต่อ">
+                <mat-hint [align]="end">{{InfoValueForm.controls.PhoneNo.value?.length || 0}}/50</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field hintLabel="อีเมล์/ไลน์ไอดี">
+                <input matInput formControlName="MailAddress" maxlength="100" placeholder="อีเมล์/ไลน์">
+                <mat-hint [align]="end">{{InfoValueForm.controls.MailAddress.value?.length || 0}}/100</mat-hint>
+              </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">Next</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <!--Expansion3-->
+            <mat-expansion-panel class="my-1" [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
+              <!--Header-->
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <strong>ข้อมูลอื่นๆ</strong>
+                </mat-panel-title>
+                <mat-panel-description>
+                  ระบุข้อมูลอื่นหรือหมายเหตุ
+                  <mat-icon>receipt</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+              <mat-form-field hintLabel="ข้อมูลอื่นๆ">
+                <input matInput formControlName="Infomation" maxlength="200" placeholder="ข้อมูลที่จำเป็นเพิ่มเติม">
+                <mat-hint [align]="end">{{InfoValueForm.controls.Infomation.value?.length || 0}}/200</mat-hint>
+              </mat-form-field>
+
+              <mat-form-field hintLabel="หมายเหตุ">
+                <input matInput formControlName="Remark" maxlength="200" placeholder="หมายเหตุอื่นๆ">
+                <mat-hint [align]="end">{{InfoValueForm.controls.Remark.value?.length || 0}}/200</mat-hint>
+              </mat-form-field>
+
+              <mat-action-row>
+                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                <button mat-button color="primary" (click)="nextStep()">End</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>
+        <strong><b>ข้อมูลสัตว์เลี้ยง</b></strong>
+      </ng-template>
+      <div class="form-container-column">
+        <div class="my-0" *ngIf="!forFail">
+          <button mat-mini-fab color="primary" (click)="actionMarkNo()"
+                  matTooltip="เพิ่มสัตว์เลี้ยง">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+        <div >
+         TODO : add pet component
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>
+
+<ng-template #elseBlock>
+  <mat-progress-bar mode="indeterminate" style="margin-top:50px;"></mat-progress-bar>
+  Waiting... for loading
+</ng-template>
